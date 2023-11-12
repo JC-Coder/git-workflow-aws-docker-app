@@ -2,7 +2,7 @@ name: CICD
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   build:
@@ -14,8 +14,9 @@ jobs:
         run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
       - name: Build docker image
         run: docker build -t sampleaws/nodejs-app .
-      - name: Publish image to docker hub
+      - name: Add tag
         run: docker tag sampleaws/nodejs-app:latest sampleaws/nodejs-app:latest
+      - name: Publish image to docker hub
         run: docker push sampleaws/nodejs-app:latest
   deploy:
     needs: build
