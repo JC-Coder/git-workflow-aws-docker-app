@@ -11,11 +11,9 @@ jobs:
       - name: Checkout Source
         uses: actions/checkout@v3
       - name: Login to docker hub
-        run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+        run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }} docker.io
       - name: Build docker image
         run: docker build -t sampleaws/nodejs-app .
-      - name: Add tag
-        run: docker tag sampleaws/nodejs-app:latest sampleaws/nodejs-app:latest
       - name: Publish image to docker hub
         run: docker push sampleaws/nodejs-app:latest
   deploy:
